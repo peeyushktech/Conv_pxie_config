@@ -107,7 +107,7 @@ export default function ChatWindow() {
       // --- FIX: extract JSON from mixed text ---
       const raw = await res.text();
 
-      // Match the FIRST valid JSON object in the text
+      // Match the FIRST valid JSON object in the text (this is the API response wrapper)
       const match = raw.match(/\{[\s\S]*\}/);
 
       if (!match) {
@@ -116,7 +116,41 @@ export default function ChatWindow() {
       }
 
       const jsonString = match[0];
-      const payload: AIResponse = JSON.parse(jsonString);
+      const apiResponse = JSON.parse(jsonString);
+
+      // Now extract the INNER JSON from the reply text
+      const replyText = apiResponse.reply || "";
+      const innerMatch = replyText.match(/\{[\s\S]*\}/);
+
+      let payload: AIResponse;
+
+      if (innerMatch) {
+        // Parse the inner JSON which contains the actual systemUpdate
+        try {
+          payload = JSON.parse(innerMatch[0]);
+        } catch (e) {
+          console.error("Failed to parse inner JSON:", e);
+          // Fallback: use the outer response with empty systemUpdate
+          payload = {
+            reply: replyText,
+            systemUpdate: {
+              chassis: { model: null, slots: null, slotDetails: null },
+              controller: { model: null, type: null, processor: null, ram: null, storage: null },
+              modules: []
+            }
+          };
+        }
+      } else {
+        // No inner JSON found, use the outer response
+        payload = {
+          reply: replyText,
+          systemUpdate: apiResponse.systemUpdate || {
+            chassis: { model: null, slots: null, slotDetails: null },
+            controller: { model: null, type: null, processor: null, ram: null, storage: null },
+            modules: []
+          }
+        };
+      }
       // -----------------------------------------
 
       // 3. Add AI message to chat
