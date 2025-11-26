@@ -383,6 +383,252 @@ export const NI_CATALOG = {
             price: 113800
         },
 
+        // Additional Simultaneous Sampling DAQ Modules
+        {
+            category: "Multifunction DAQ",
+            model: "NI PXIe-6368",
+            description: "16 Diff AI, 2 MS/s, 16-bit, Simultaneous",
+            specs: { channels: "16 Diff", voltage: "N/A", bandwidth: "2 MS/s" },
+            busType: "PXIe",
+            price: 1401500
+        },
+        {
+            category: "Multifunction DAQ",
+            model: "NI PXIe-6366",
+            description: "8 Diff AI, 2 MS/s, 16-bit, Simultaneous",
+            specs: { channels: "8 Diff", voltage: "N/A", bandwidth: "2 MS/s" },
+            busType: "PXIe",
+            price: 759900
+        },
+        {
+            category: "Multifunction DAQ",
+            model: "NI PXIe-6386",
+            description: "8 Diff AI, 14 MS/s, 16-bit, Simultaneous",
+            specs: { channels: "8 Diff", voltage: "N/A", bandwidth: "14 MS/s" },
+            busType: "PXIe",
+            price: 1136200
+        },
+        {
+            category: "Multifunction DAQ",
+            model: "NI PXIe-6396",
+            description: "8 Diff AI, 14 MS/s, 18-bit, Simultaneous",
+            specs: { channels: "8 Diff", voltage: "N/A", bandwidth: "14 MS/s" },
+            busType: "PXIe",
+            price: 1154200
+        },
+        {
+            category: "Multifunction DAQ",
+            model: "NI PXIe-6358",
+            description: "16 Diff AI, 1.25 MS/s, 16-bit, Simultaneous",
+            specs: { channels: "16 Diff", voltage: "N/A", bandwidth: "1.25 MS/s" },
+            busType: "PXIe",
+            price: 1099500
+        },
+        {
+            category: "Multifunction DAQ",
+            model: "NI PXIe-6356",
+            description: "8 Diff AI, 1.25 MS/s, 16-bit, Simultaneous",
+            specs: { channels: "8 Diff", voltage: "N/A", bandwidth: "1.25 MS/s" },
+            busType: "PXIe",
+            price: 641900
+        },
+        {
+            category: "Multifunction DAQ",
+            model: "NI PXIe-6349",
+            description: "32 Diff AI, 500 kS/s, 16-bit, Simultaneous",
+            specs: { channels: "32 Diff", voltage: "N/A", bandwidth: "500 kS/s" },
+            busType: "PXIe",
+            price: 881200
+        },
+        {
+            category: "Multifunction DAQ",
+            model: "NI PXI-6143",
+            description: "8 Diff AI, 250 kS/s, 16-bit",
+            specs: { channels: "8 Diff", voltage: "N/A", bandwidth: "250 kS/s" },
+            busType: "PXI",
+            price: null
+        },
+        {
+            category: "Multifunction DAQ",
+            model: "NI PXI-6133/32 MSamples",
+            description: "8 Diff AI, 3 MS/s, 14-bit, 32 MSamples",
+            specs: { channels: "8 Diff", voltage: "N/A", bandwidth: "3 MS/s" },
+            busType: "PXI",
+            price: null
+        },
+        {
+            category: "Multifunction DAQ",
+            model: "NI PXI-6133/16 MSamples",
+            description: "8 Diff AI, 3 MS/s, 14-bit, 16 MSamples",
+            specs: { channels: "8 Diff", voltage: "N/A", bandwidth: "3 MS/s" },
+            busType: "PXI",
+            price: null
+        },
+        {
+            category: "Multifunction DAQ",
+            model: "NI PXI-6132",
+            description: "4 Diff AI, 3 MS/s, 14-bit",
+            specs: { channels: "4 Diff", voltage: "N/A", bandwidth: "3 MS/s" },
+            busType: "PXI",
+            price: null
+        },
+        {
+            category: "Multifunction DAQ",
+            model: "NI PXIe-6124",
+            description: "4 Diff AI, 4 MS/s, 16-bit",
+            specs: { channels: "4 Diff", voltage: "N/A", bandwidth: "4 MS/s" },
+            busType: "PXIe",
+            price: 666700
+        },
+        {
+            category: "Multifunction DAQ",
+            model: "NI PXI-6123/32 MSamples",
+            description: "8 Diff AI, 500 kS/s, 16-bit, 32 MSamples",
+            specs: { channels: "8 Diff", voltage: "N/A", bandwidth: "500 kS/s" },
+            busType: "PXI",
+            price: null
+        },
+        {
+            category: "Multifunction DAQ",
+            model: "NI PXI-6123/16 MSamples",
+            description: "8 Diff AI, 500 kS/s, 16-bit, 16 MSamples",
+            specs: { channels: "8 Diff", voltage: "N/A", bandwidth: "500 kS/s" },
+            busType: "PXI",
+            price: null
+        },
+        {
+            category: "Multifunction DAQ",
+            model: "NI PXI-6122",
+            description: "4 Diff AI, 500 kS/s, 16-bit",
+            specs: { channels: "4 Diff", voltage: "N/A", bandwidth: "500 kS/s" },
+            busType: "PXI",
+            price: null
+        },
+
+        // Isolated Analog Input Modules
+        {
+            category: "Multifunction DAQ",
+            model: "NI PXI-6238",
+            description: "8 Diff AI, 250 kS/s, 16-bit, Isolated",
+            specs: { channels: "8 Diff", voltage: "N/A", bandwidth: "250 kS/s" },
+            busType: "PXI",
+            price: null
+        },
+        {
+            category: "Multifunction DAQ",
+            model: "NI PXI-6236",
+            description: "4 Diff AI, 250 kS/s, 16-bit, Isolated",
+            specs: { channels: "4 Diff", voltage: "N/A", bandwidth: "250 kS/s" },
+            busType: "PXI",
+            price: null
+        },
+        {
+            category: "Multifunction DAQ",
+            model: "NI PXI-6232",
+            description: "16 SE/8 Diff AI, 250 kS/s, 16-bit, Isolated",
+            specs: { channels: "16 SE/8 Diff", voltage: "N/A", bandwidth: "250 kS/s" },
+            busType: "PXI",
+            price: null
+        },
+        {
+            category: "Multifunction DAQ",
+            model: "NI PXI-6230",
+            description: "8 SE/4 Diff AI, 250 kS/s, 16-bit, Isolated",
+            specs: { channels: "8 SE/4 Diff", voltage: "N/A", bandwidth: "250 kS/s" },
+            busType: "PXI",
+            price: null
+        },
+
+        // Value Series DAQ Modules
+        {
+            category: "Multifunction DAQ",
+            model: "NI PXIe-6345",
+            description: "80 SE AI, 500 kS/s, 16-bit",
+            specs: { channels: "80 SE", voltage: "N/A", bandwidth: "500 kS/s" },
+            busType: "PXIe",
+            price: 307400
+        },
+        {
+            category: "Multifunction DAQ",
+            model: "NI PXIe-6343",
+            description: "32 SE/16 Diff AI, 500 kS/s, 16-bit",
+            specs: { channels: "32 SE/16 Diff", voltage: "N/A", bandwidth: "500 kS/s" },
+            busType: "PXIe",
+            price: 210100
+        },
+        {
+            category: "Multifunction DAQ",
+            model: "NI PXIe-6341",
+            description: "16 SE/8 Diff AI, 500 kS/s, 16-bit",
+            specs: { channels: "16 SE/8 Diff", voltage: "N/A", bandwidth: "500 kS/s" },
+            busType: "PXIe",
+            price: 184300
+        },
+        {
+            category: "Multifunction DAQ",
+            model: "NI PXI-6289",
+            description: "32 SE/16 Diff AI, 500 kS/s, 18-bit",
+            specs: { channels: "32 SE/16 Diff", voltage: "N/A", bandwidth: "500 kS/s" },
+            busType: "PXI",
+            price: null
+        },
+        {
+            category: "Multifunction DAQ",
+            model: "NI PXI-6284",
+            description: "32 SE/16 Diff AI, 500 kS/s, 18-bit",
+            specs: { channels: "32 SE/16 Diff", voltage: "N/A", bandwidth: "500 kS/s" },
+            busType: "PXI",
+            price: null
+        },
+        {
+            category: "Multifunction DAQ",
+            model: "NI PXI-6281",
+            description: "16 SE/8 Diff AI, 500 kS/s, 18-bit",
+            specs: { channels: "16 SE/8 Diff", voltage: "N/A", bandwidth: "500 kS/s" },
+            busType: "PXI",
+            price: null
+        },
+        {
+            category: "Multifunction DAQ",
+            model: "NI PXI-6280",
+            description: "16 SE/8 Diff AI, 500 kS/s, 18-bit",
+            specs: { channels: "16 SE/8 Diff", voltage: "N/A", bandwidth: "500 kS/s" },
+            busType: "PXI",
+            price: null
+        },
+        {
+            category: "Multifunction DAQ",
+            model: "NI PXI-6229",
+            description: "32 SE/16 Diff AI, 250 kS/s, 16-bit",
+            specs: { channels: "32 SE/16 Diff", voltage: "N/A", bandwidth: "250 kS/s" },
+            busType: "PXI",
+            price: null
+        },
+        {
+            category: "Multifunction DAQ",
+            model: "NI PXI-6225",
+            description: "80 SE/40 Diff AI, 250 kS/s, 16-bit",
+            specs: { channels: "80 SE/40 Diff", voltage: "N/A", bandwidth: "250 kS/s" },
+            busType: "PXI",
+            price: null
+        },
+        {
+            category: "Multifunction DAQ",
+            model: "NI PXI-6224",
+            description: "32 SE/16 Diff AI, 250 kS/s, 16-bit",
+            specs: { channels: "32 SE/16 Diff", voltage: "N/A", bandwidth: "250 kS/s" },
+            busType: "PXI",
+            price: null
+        },
+        {
+            category: "Multifunction DAQ",
+            model: "NI PXI-6221",
+            description: "16 SE/8 Diff AI, 250 kS/s, 16-bit",
+            specs: { channels: "16 SE/8 Diff", voltage: "N/A", bandwidth: "250 kS/s" },
+            busType: "PXI",
+            price: null
+        },
+
         // Analog Output Modules
         {
             category: "Analog Output",
