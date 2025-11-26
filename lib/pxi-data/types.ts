@@ -3,8 +3,9 @@ export type PXIModule = {
   id: string;           // unique instance id (uuid)
   model: string;        // e.g., "PXIe-6581"
   type: string;         // e.g., "High-Speed Digital"
+  slotsRequired?: number; // How many physical slots this module occupies (default: 1)
   bandwidth?: string | null;
-  slot?: number | null; // assigned slot index (1-based)
+  slot?: number | null; // assigned slot index (1-based) - starting slot for multi-slot modules
   busType?: "PXIe" | "PCIe" | "PXI" | null; // New: Bus type for compatibility
   voltage?: string | null; // e.g., "±10 V"
   channels?: string | number | null; // e.g., "32 ch"

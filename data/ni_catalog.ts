@@ -692,6 +692,15 @@ export const NI_CATALOG = {
         },
         {
             category: "Oscilloscope",
+            model: "NI PXIe-5841 VST",
+            description: "6 GHz Vector Signal Transceiver",
+            slotsRequired: 2,
+            specs: { channels: "2 RF", bandwidth: "1 GHz", voltage: "N/A" },
+            busType: "PXIe",
+            price: 3500000
+        },
+        {
+            category: "Oscilloscope",
             model: "NI PXIe-5163",
             description: "1 GS/s, 200 MHz, 14-bit",
             specs: { channels: 2, bandwidth: "200 MHz", voltage: "N/A" },

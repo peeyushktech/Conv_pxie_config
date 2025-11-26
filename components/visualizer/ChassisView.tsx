@@ -215,60 +215,107 @@ export default function ChassisView() {
             </div>
 
             {/* ---------- NORMAL SLOTS ---------- */}
-            {Array.from({ length: totalSlots }).map((_, idx) => {
-              const slotNum = idx + 1;
-              const mod = modulesBySlot.get(slotNum) ?? null;
-              const slotType = system.chassis.slotDetails?.[slotNum] ?? (slotNum <= 4 ? "PXIe" : "Hybrid");
+            {/* ---------- NORMAL SLOTS ---------- */}
+            {(() => {
+              const slots: React.ReactNode[] = [];
+              const coveredSlots = new Set<number>();
 
-              return (
-                <DroppableSlot key={slotNum} slotNum={slotNum} slotType={slotType} isOver={false}>
-                  <Tooltip content={
-                    mod ? (
-                      <div className="text-left">
-                        <div className="font-bold border-b border-slate-700 pb-1 mb-1">{mod.model}</div>
-                        <div>Type: {mod.type}</div>
-                        {mod.bandwidth && <div>BW: {mod.bandwidth}</div>}
-                        {mod.voltage && <div>Voltage: {mod.voltage}</div>}
-                        {mod.channels && <div>Ch: {mod.channels}</div>}
-                        {mod.specDetails && <div className="text-[10px] italic mt-1">{mod.specDetails}</div>}
-                        <div className="mt-1 pt-1 border-t border-slate-700 text-[10px]">Bus: {mod.busType ?? "PXIe"}</div>
-                      </div>
-                    ) : `Empty ${slotType} Slot`
-                  }>
-                    {mod ? (
-                      <DraggableModule module={mod} slotNum={slotNum} />
-                    ) : (
-                      <div
-                        className="h-full flex flex-col justify-end items-center pb-2 cursor-pointer"
-                        onClick={() => {
-                          const unassigned = system.modules.find((m) => !m.slot);
-                          if (unassigned) {
-                            const bus = unassigned.busType ?? "PXIe";
-                            if (bus === "PCIe" && slotType !== "Hybrid") {
-                              alert(`Incompatible: PCIe modules can only go in Hybrid slots. Slot ${slotNum} is ${slotType}.`);
-                              return;
-                            }
-                            assignModuleToSlot(unassigned.id, slotNum);
-                          }
-                        }}
-                      >
-                        {/* Slot Type Marker */}
-                        {slotType === "Hybrid" ? (
-                          <div className="mb-1 w-5 h-5 rounded-full border-2 border-slate-400 flex items-center justify-center bg-white shadow-sm" title="Hybrid Slot">
-                            <span className="text-[10px] font-extrabold text-slate-600">H</span>
+              for (let i = 0; i < totalSlots; i++) {
+                const slotNum = i + 1;
+
+                // Skip if this slot is covered by a previous multi-slot module
+                if (coveredSlots.has(slotNum)) continue;
+
+                const mod = modulesBySlot.get(slotNum) ?? null;
+                const slotType = system.chassis.slotDetails?.[slotNum] ?? (slotNum <= 4 ? "PXIe" : "Hybrid");
+
+                // Determine span
+                const span = mod?.slotsRequired ?? 1;
+
+                // Mark subsequent slots as covered
+                if (span > 1) {
+                  for (let j = 1; j < span; j++) {
+                    coveredSlots.add(slotNum + j);
+                  }
+                }
+
+                const colSpanClasses: Record<number, string> = {
+                  1: "col-span-1",
+                  2: "col-span-2",
+                  3: "col-span-3",
+                  4: "col-span-4",
+                  5: "col-span-5",
+                };
+
+                slots.push(
+                  <div key={slotNum} className={colSpanClasses[span] || "col-span-1"} style={{ gridColumn: `span ${span} / span ${span}` }}>
+                    <DroppableSlot slotNum={slotNum} slotType={slotType} isOver={false}>
+                      <Tooltip content={
+                        mod ? (
+                          <div className="text-left">
+                            <div className="font-bold border-b border-slate-700 pb-1 mb-1">{mod.model}</div>
+                            <div>Type: {mod.type}</div>
+                            {mod.slotsRequired && mod.slotsRequired > 1 && <div className="text-yellow-400 font-bold">{mod.slotsRequired}-Slot Module</div>}
+                            {mod.bandwidth && <div>BW: {mod.bandwidth}</div>}
+                            {mod.voltage && <div>Voltage: {mod.voltage}</div>}
+                            {mod.channels && <div>Ch: {mod.channels}</div>}
+                            {mod.specDetails && <div className="text-[10px] italic mt-1">{mod.specDetails}</div>}
+                            <div className="mt-1 pt-1 border-t border-slate-700 text-[10px]">Bus: {mod.busType ?? "PXIe"}</div>
                           </div>
+                        ) : `Empty ${slotType} Slot`
+                      }>
+                        {mod ? (
+                          <DraggableModule module={mod} slotNum={slotNum} />
                         ) : (
-                          <div className="mb-1 w-5 h-5 rounded-full border border-slate-300 flex items-center justify-center bg-slate-50" title="PXIe Slot">
-                            <span className="text-[10px] font-bold text-slate-400">P</span>
+                          <div
+                            className="h-full flex flex-col justify-end items-center pb-2 cursor-pointer"
+                            onClick={() => {
+                              const unassigned = system.modules.find((m) => !m.slot);
+                              if (unassigned) {
+                                const bus = unassigned.busType ?? "PXIe";
+                                if (bus === "PCIe" && slotType !== "Hybrid") {
+                                  alert(`Incompatible: PCIe modules can only go in Hybrid slots. Slot ${slotNum} is ${slotType}.`);
+                                  return;
+                                }
+                                // Check if module fits (slots required)
+                                const required = unassigned.slotsRequired ?? 1;
+                                if (required > 1) {
+                                  // Check if enough consecutive slots are available
+                                  for (let k = 1; k < required; k++) {
+                                    if (modulesBySlot.has(slotNum + k)) {
+                                      alert(`Cannot place ${required}-slot module here. Slot ${slotNum + k} is occupied.`);
+                                      return;
+                                    }
+                                    if (slotNum + k > totalSlots) {
+                                      alert(`Cannot place ${required}-slot module here. Not enough slots.`);
+                                      return;
+                                    }
+                                  }
+                                }
+                                assignModuleToSlot(unassigned.id, slotNum);
+                              }
+                            }}
+                          >
+                            {/* Slot Type Marker */}
+                            {slotType === "Hybrid" ? (
+                              <div className="mb-1 w-5 h-5 rounded-full border-2 border-slate-400 flex items-center justify-center bg-white shadow-sm" title="Hybrid Slot">
+                                <span className="text-[10px] font-extrabold text-slate-600">H</span>
+                              </div>
+                            ) : (
+                              <div className="mb-1 w-5 h-5 rounded-full border border-slate-300 flex items-center justify-center bg-slate-50" title="PXIe Slot">
+                                <span className="text-[10px] font-bold text-slate-400">P</span>
+                              </div>
+                            )}
+                            <span className="text-[9px] text-slate-400 font-mono">{slotNum}</span>
                           </div>
                         )}
-                        <span className="text-[9px] text-slate-400 font-mono">{slotNum}</span>
-                      </div>
-                    )}
-                  </Tooltip>
-                </DroppableSlot>
-              );
-            })}
+                      </Tooltip>
+                    </DroppableSlot>
+                  </div>
+                );
+              }
+              return slots;
+            })()}
           </div>
         </div>
       </div>
