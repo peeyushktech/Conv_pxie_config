@@ -15,7 +15,7 @@ export default function ModuleCard({ module }: { module: PXIModule }) {
           {module.type}{" "}
           {module.bandwidth ? `• ${module.bandwidth}` : ""}
         </div>
-        <div className="text-[11px] text-slate-400 mt-1 font-medium">
+        <div className="text-[11px] text-slate-400 mt-1 font-medium flex gap-2 items-center">
           {module.slot ? (
             <span className="text-blue-600 bg-blue-50 px-1.5 py-0.5 rounded">
               Slot {module.slot}
@@ -23,6 +23,11 @@ export default function ModuleCard({ module }: { module: PXIModule }) {
           ) : (
             <span className="text-orange-600 bg-orange-50 px-1.5 py-0.5 rounded">
               Unassigned
+            </span>
+          )}
+          {module.price && (
+            <span className="text-slate-600 bg-slate-100 px-1.5 py-0.5 rounded">
+              ₹{module.price.toLocaleString('en-IN')}
             </span>
           )}
         </div>

@@ -8,6 +8,7 @@ type SystemState = {
   updateSystem: (s: PXISystem) => void;
   addModuleInstance: (m: Omit<PXIModule, "id">) => void;
   assignModuleToSlot: (id: string, slot: number | null) => void;
+  moveModule: (moduleId: string, newSlot: number) => void;
   removeModule: (id: string) => void;
   reset: () => void;
 };
@@ -33,6 +34,26 @@ export const useSystemStore = create<SystemState>((set, get) => ({
     }));
   },
   removeModule: (id) => set(state => ({ system: { ...state.system, modules: state.system.modules.filter(m => m.id !== id) } })),
+  moveModule: (moduleId, newSlot) => {
+    set(state => {
+      const modules = [...state.system.modules];
+      const sourceIndex = modules.findIndex(m => m.id === moduleId);
+      if (sourceIndex === -1) return state;
+
+      const targetIndex = modules.findIndex(m => m.slot === newSlot);
+
+      // Update source module slot
+      modules[sourceIndex] = { ...modules[sourceIndex], slot: newSlot };
+
+      // If target slot is occupied, swap (or move to old slot)
+      // For simplicity, let's just swap for now if occupied
+      if (targetIndex !== -1) {
+        modules[targetIndex] = { ...modules[targetIndex], slot: state.system.modules[sourceIndex].slot };
+      }
+
+      return { system: { ...state.system, modules } };
+    });
+  },
   reset: () => set(() => ({
     system: {
       chassis: { model: null, slots: null, slotDetails: null },
@@ -41,3 +62,4 @@ export const useSystemStore = create<SystemState>((set, get) => ({
     }
   }))
 }));
+

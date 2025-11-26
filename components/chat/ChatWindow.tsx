@@ -174,6 +174,7 @@ export default function ChatWindow() {
             model: update.chassis.model ?? null,
             slots: update.chassis.slots ?? null,
             slotDetails: update.chassis.slotDetails ?? null,
+            price: update.chassis.price ?? null,
           }
         });
       }
@@ -186,6 +187,7 @@ export default function ChatWindow() {
             processor: update.controller.processor ?? null,
             ram: update.controller.ram ?? null,
             storage: update.controller.storage ?? null,
+            price: update.controller.price ?? null,
           }
         });
       }
@@ -202,6 +204,7 @@ export default function ChatWindow() {
           voltage: mod.voltage ?? null,
           channels: mod.channels ?? null,
           specDetails: mod.specDetails ?? null,
+          price: mod.price ?? null,
         }));
 
         store.setSystem({

@@ -72,22 +72,73 @@ export default function SystemVisualizer() {
           Conversational PXI Configurator
         </h2>
 
-        <div className="flex gap-3">
+        <div className="flex gap-3 items-center">
+          <div className="text-right mr-4">
+            <div className="text-xs text-slate-500 font-medium uppercase tracking-wider">Total System Cost</div>
+            <div className="text-xl font-bold text-slate-800">
+              ₹{(
+                (system.chassis.price || 0) +
+                (system.controller.price || 0) +
+                system.modules.reduce((sum, m) => sum + (m.price || 0), 0)
+              ).toLocaleString('en-IN')}
+            </div>
+          </div>
+
           <button
             className="px-4 py-2 border border-slate-300 rounded-md bg-white hover:bg-slate-50 text-slate-700 font-medium transition-colors shadow-sm"
             onClick={() => {
-              const blob = new Blob([JSON.stringify(system, null, 2)], {
-                type: "application/json",
+              import("xlsx").then((XLSX) => {
+                // Flatten data for Excel
+                const data: any[] = [];
+                let totalCost = 0;
+
+                // Chassis Info
+                if (system.chassis.model) {
+                  const price = system.chassis.price || 0;
+                  totalCost += price;
+                  data.push({
+                    Category: "Chassis",
+                    Model: system.chassis.model,
+                    Details: `Slots: ${system.chassis.slots}`,
+                    Price: price
+                  });
+                }
+
+                // Controller Info
+                if (system.controller.model) {
+                  const price = system.controller.price || 0;
+                  totalCost += price;
+                  data.push({
+                    Category: "Controller",
+                    Model: system.controller.model,
+                    Details: `Type: ${system.controller.type}, CPU: ${system.controller.processor || "N/A"}, RAM: ${system.controller.ram || "N/A"}, Storage: ${system.controller.storage || "N/A"}`,
+                    Price: price
+                  });
+                }
+
+                // Modules Info
+                system.modules.forEach((mod, idx) => {
+                  const price = mod.price || 0;
+                  totalCost += price;
+                  data.push({
+                    Category: `Module ${idx + 1}`,
+                    Model: mod.model,
+                    Details: `Type: ${mod.type}, Slot: ${mod.slot || "Unassigned"}, BW: ${mod.bandwidth || "N/A"}, Voltage: ${mod.voltage || "N/A"}, Channels: ${mod.channels || "N/A"}`,
+                    Price: price
+                  });
+                });
+
+                // Total Row
+                data.push({}); // spacer
+                data.push({ Category: "TOTAL SYSTEM COST", Price: totalCost });
+
+                const ws = XLSX.utils.json_to_sheet(data);
+                const wb = XLSX.utils.book_new();
+                XLSX.utils.book_append_sheet(wb, ws, "PXI Configuration");
+                XLSX.writeFile(wb, "pxi_configuration.xlsx");
               });
-              const url = URL.createObjectURL(blob);
-              const a = document.createElement("a");
-              a.href = url;
-              a.download = "pxi_system.json";
-              a.click();
-              URL.revokeObjectURL(url);
-            }}
-          >
-            Export JSON
+            }}>
+            Export to Excel
           </button>
 
           <button

@@ -1,0 +1,74 @@
+[
+    {
+        "category": "Multifunction DAQ",
+        "model": "NI PXIe-6375",
+        "description": "208 SE/104 Diff AI, 3.86 MS/s, 16-bit",
+        "specs": {
+            "channels": "208 SE/104 Diff",
+            "voltage": "N/A",
+            "bandwidth": "3.86 MS/s"
+        },
+        "busType": "PXIe",
+        "price": 993500
+    },
+    {
+        "category": "Multifunction DAQ",
+        "model": "NI PXIe-6365",
+        "description": "144 SE/72 Diff AI, 2 MS/s, 16-bit",
+        "specs": {
+            "channels": "144 SE/72 Diff",
+            "voltage": "N/A",
+            "bandwidth": "2 MS/s"
+        },
+        "busType": "PXIe",
+        "price": 722600
+    },
+    {
+        "category": "Multifunction DAQ",
+        "model": "NI PXIe-6363",
+        "description": "32 SE/16 Diff AI, 2 MS/s, 16-bit",
+        "specs": {
+            "channels": "32 SE/16 Diff",
+            "voltage": "N/A",
+            "bandwidth": "2 MS/s"
+        },
+        "busType": "PXIe",
+        "price": 360000
+    },
+    {
+        "category": "Multifunction DAQ",
+        "model": "NI PXIe-6361",
+        "description": "16 SE/8 Diff AI, 2 MS/s, 16-bit",
+        "specs": {
+            "channels": "16 SE/8 Diff",
+            "voltage": "N/A",
+            "bandwidth": "2 MS/s"
+        },
+        "busType": "PXIe",
+        "price": 292600
+    },
+    {
+        "category": "Multifunction DAQ",
+        "model": "NI PXIe-6355",
+        "description": "80 SE/40 Diff AI, 1.25 MS/s, 16-bit",
+        "specs": {
+            "channels": "80 SE/40 Diff",
+            "voltage": "N/A",
+            "bandwidth": "1.25 MS/s"
+        },
+        "busType": "PXIe",
+        "price": 451800
+    },
+    {
+        "category": "Multifunction DAQ",
+        "model": "NI PXIe-6351",
+        "description": "16 SE/8 Diff AI, 1.25 MS/s, 16-bit",
+        "specs": {
+            "channels": "16 SE/8 Diff",
+            "voltage": "N/A",
+            "bandwidth": "1.25 MS/s"
+        },
+        "busType": "PXIe",
+        "price": 201300
+    }
+]

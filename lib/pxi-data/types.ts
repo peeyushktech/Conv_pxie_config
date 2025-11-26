@@ -9,6 +9,7 @@ export type PXIModule = {
   voltage?: string | null; // e.g., "±10 V"
   channels?: string | number | null; // e.g., "32 ch"
   specDetails?: string | null; // Generic catch-all for other specs
+  price?: number | null; // Estimated price
 };
 
 export type PXIController = {
@@ -17,12 +18,14 @@ export type PXIController = {
   processor?: string | null; // e.g., "Intel Xeon"
   ram?: string | null; // e.g., "16 GB"
   storage?: string | null; // e.g., "512 GB SSD"
+  price?: number | null; // Estimated price
 };
 
 export type PXIChassis = {
   model?: string | null;
   slots?: number | null; // total slots (e.g., 14, 18)
   slotDetails?: Record<number, "Hybrid" | "PXIe" | "PXI"> | null; // New: Slot type definitions
+  price?: number | null; // Estimated price
 };
 
 export type PXISystem = {
